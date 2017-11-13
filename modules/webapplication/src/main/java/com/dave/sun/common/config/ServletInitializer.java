@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by Super.Sun on 2017/11/13.
+ * tomcat启动需要配置
  */
 public class ServletInitializer extends SpringBootServletInitializer {
 
