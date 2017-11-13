@@ -25,10 +25,14 @@ dependencies {
     //****************boot start
     compile("org.springframework.boot:spring-boot-starter-web:$springVersion")
     compile("org.springframework.boot:spring-boot-starter-parent:$springVersion")
+    compile("org.springframework.boot:spring-boot-starter-freemarker:$springVersion")
+    compile("org.springframework.boot:spring-boot-starter-jdbc:$springVersion")
+    compile("org.springframework.boot:spring-boot-starter-data-redis:$springVersion")
     testCompile("org.springframework.boot:spring-boot-starter-test:$springVersion")
     //****************boot end
-    compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile("mysql:mysql-connector-java:5.1.21")
     compile("commons-lang:commons-lang:2.6")
+    compile("com.alibaba:fastjson:1.2.12")
     compile ("org.apache.httpcomponents:httpcore:$httpclientVersion")
     compile ("org.apache.httpcomponents:httpclient:$httpclientVersion")
     compile ("org.slf4j:slf4j-api:1.7.12")

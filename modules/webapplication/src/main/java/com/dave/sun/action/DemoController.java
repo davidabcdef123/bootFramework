@@ -1,8 +1,12 @@
 package com.dave.sun.action;
 
+import com.dave.sun.common.config.error.MyException;
+import com.dave.sun.service.DemoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,9 @@ import java.util.List;
  */
 @Controller
 public class DemoController {
+
+    @Autowired
+    DemoService demoService;
 
     @RequestMapping("/")
     public String index(ModelMap modelMap){
@@ -26,9 +33,23 @@ public class DemoController {
         return "index";
     }
 
-    @RequestMapping("/aaa")
-    public String aaa(){
-        return "index";
+    @RequestMapping("/hello")
+    public String hello() throws Exception {
+        throw new Exception("发生错误");
     }
+
+    @RequestMapping("/json")
+    public String json() throws MyException {
+        throw new MyException("发生错误2");
+    }
+
+    @RequestMapping("redis/add")
+    @ResponseBody
+    public String redisAdd(){
+        demoService.redisAdd();
+        return "";
+    }
+
+
 
 }
