@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+
+jar {
+    manifest {
+        attributes "Implementation-Vendor": "北京TTT公司"
+        attributes "Implementation-Title": project.name
+        attributes "Implementation-Version": project.version
+        attributes "Built-By": "author"
+        attributes "Build-Jdk": "${System.getProperty("java.version")} (${System.getProperty("java.specification.vendor")})"
+        attributes "Source-Compatibility": "Java ${sourceCompatibility}"
+        attributes "Target-Compatibility": "Java ${targetCompatibility}"
+        attributes "Created-By": "Gradle ${gradle_version}"
+    }
+}
+

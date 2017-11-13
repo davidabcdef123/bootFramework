@@ -1,0 +1,13 @@
+rootProject.name = 'bootFramework'
+include 'modules/api'
+include 'modules/webapplication'
+
+rootProject.children.each { ProjectDescriptor project ->
+    def projectName = project.name
+    project.projectDir = new File(settingsDir, projectName);
+    if (projectName.contains("/")) {
+        def index = projectName.lastIndexOf("/") + 1
+        project.name = projectName.substring(index)
+    }
+}
+

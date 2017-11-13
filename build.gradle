@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        maven {
+            url 'http://172.17.0.59:8081/nexus/content/groups/public'
+        }
+        maven {
+            url 'http://172.17.0.59:8081/nexus/content/repositories/thirdparty'
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
+    }
+}
+
+configure(allprojects) { project ->
+    group 'com.dave'
+    version '1.0-SNAPSHOT'
+    ext.gradleScriptDir = "${rootDir}/gradle"
+    apply from: "${gradleScriptDir}/common.gradle"
+    repositories {
+        maven {
+            url 'http://172.17.0.59:8081/nexus/content/groups/public'
+        }
+        maven {
+            url 'http://172.17.0.59:8081/nexus/content/repositories/thirdparty'
+        }
+    }
+}
+
+ext{
+    springVersion="1.5.8.RELEASE"
+    httpclientVersion="4.3.3"
+}
+
+dependencies {
+
+    //testCompile("org.springframework.security:spring-security-test:$springVersion")
+
+}
+
+/*dependencyManagement {
+    imports {
+        //mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}*/

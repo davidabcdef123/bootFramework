@@ -1,0 +1,166 @@
+// build a map of the dependency artifacts to use.  Allows centralized definition of the version of artifacts to use.
+// In that respect it serves a role similar to <dependencyManagement> in Maven
+
+ext {
+    junitVersion = '4.12'
+    hamcrestVersion = '1.3'
+    log4jVersion = '1.2.17'
+    slf4jVersion = '1.7.13'
+    logbackVersion = '1.1.3'
+    logbackExtSpringVersion = '0.1.4'
+    commonsLoggingVersion = '1.2'
+    typesafeConfigVersion = '1.3.0'
+    snakeyamlVersion = '1.16'
+    groovyVersion = '2.4.5'
+    modelmapperVersion = '0.7.5'
+    servletApiVersion = '3.1.0'
+    jstlVersion = '1.2'
+    jstlApiVersion = '1.2.1'
+    jstlImplVersion = '1.2.4'
+    springVersion = '4.2.4.RELEASE'
+    springBootVersion = '1.3.0.RELEASE'
+    tomcatEmbedVersion = '8.0.23'
+    thymeleafLayoutDialectVersion = '1.2.8'
+    springDataJpaVersion = '1.8.2.RELEASE'
+    springDataCommonsVersion = '1.10.0.RELEASE'
+    hibernateJpa21ApiVersion = '1.0.0.Final'
+    druidVersion = '1.0.16'
+    sql2oVersion = '1.5.4'
+    mybatisVersion = '3.3.0'
+    mybatisSpringVersion = '1.2.3'
+    mybatisPagehelperVersion = '3.7.5'
+    postgresqlJdbcVersion = '9.4.1207'
+    quartzVersion = '2.2.2'
+    fastjsonVersion = '1.2.7'
+    jacksonVersion = '2.6.2'
+    poiVersion = '3.13'
+    hsqldbVersion = '2.3.2'
+    commonsCodecVersion = '1.10'
+    commonsLang3Version = '3.4'
+    commonsNetVersion = '3.4'
+    sparkVersion = '2.2'
+    ehcacheVersion = '2.10.0'
+    zookeeperVersion = '3.4.6'
+    zkclientVersion = '0.6'
+    dubboVersion = '2.5.3'
+    netty3Version = '3.10.4.Final'
+    netty4Version = '4.0.31.Final'
+    javassistVersion = '3.20.0-GA'
+    querydslVersion = '3.7.0'
+    aspectjrtVersion = '1.8.7'
+    gsonVersion = '2.5'
+    guavaVersion = '19.0'
+    guiceVersion = '4.0'
+    rxJavaVersion = '1.1.0'
+    jodaTimeVersion = '2.9.1'
+    xstreamVersion = '1.4.8'
+    mysql_connector_javaVersion = '5.1.38'
+    ojdbc14Version = '10.2.0.4.0'
+    spring_data_redisVersion = '1.6.2.RELEASE'
+    jedisVersion='2.7.3'
+    httpclientVersion='4.'
+
+    libraries = [
+            junit                              : "junit:junit:${junitVersion}",
+            hamcrest_core                      : "org.hamcrest:hamcrest-core:${hamcrestVersion}",
+            hamcrest_library                   : "org.hamcrest:hamcrest-library:${hamcrestVersion}",
+            log4j                              : "log4j:log4j:${log4jVersion}",
+            slf4j_api                          : "org.slf4j:slf4j-api:${slf4jVersion}",
+            slf4j_log4j12                      : "org.slf4j:slf4j-log4j12:${slf4jVersion}",
+            log4j_over_slf4j                   : "org.slf4j:log4j-over-slf4j:${slf4jVersion}",
+            slf4j_jcl                          : "org.slf4j:slf4j-jcl:${slf4jVersion}",
+            jcl_over_slf4j                     : "org.slf4j:jcl-over-slf4j:${slf4jVersion}",
+            jul_to_slf4j                       : "org.slf4j:jul-to-slf4j:${slf4jVersion}",
+
+            logback_core                       : "ch.qos.logback:logback-core:${logbackVersion}",
+            logback_classic                    : "ch.qos.logback:logback-classic:${logbackVersion}",
+            logback_ext_spring                 : "org.logback-extensions:logback-ext-spring:${logbackExtSpringVersion}",
+            commons_logging                    : "commons-logging:commons-logging:${commonsLoggingVersion}",
+
+            typesafe_config                    : "com.typesafe:config:${typesafeConfigVersion}",
+            snakeyaml                          : "org.yaml:snakeyaml:${snakeyamlVersion}",
+            groovy_all                         : "org.codehaus.groovy:groovy-all:${groovyVersion}",
+            modelmapper                        : "org.modelmapper:modelmapper:${modelmapperVersion}",
+            servlet_api                        : "javax.servlet:javax.servlet-api:${servletApiVersion}",
+            jstl                               : "javax.servlet:jstl:${jstlVersion}",
+            jstl_api                           : "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:${jstlApiVersion}",
+            jstl_impl                          : "org.glassfish.web:javax.servlet.jsp.jstl:${jstlImplVersion}",
+
+            spring_core                        : "org.springframework:spring-core:${springVersion}",
+            spring_beans                       : "org.springframework:spring-beans:${springVersion}",
+            spring_aop                         : "org.springframework:spring-aop:${springVersion}",
+            spring_tx                          : "org.springframework:spring-tx:${springVersion}",
+            spring_expression                  : "org.springframework:spring-expression:${springVersion}",
+            spring_context                     : "org.springframework:spring-context:${springVersion}",
+            spring_context_support             : "org.springframework:spring-context-support:${springVersion}",
+            spring_test                        : "org.springframework:spring-test:${springVersion}",
+            spring_web                         : "org.springframework:spring-web:${springVersion}",
+            spring_webmvc                      : "org.springframework:spring-webmvc:${springVersion}",
+            spring_webmvc_portlet              : "org.springframework:spring-webmvc-portlet:${springVersion}",
+            spring_aspects                     : "org.springframework:spring-aspects:${springVersion}",
+            spring_oxm                         : "org.springframework:spring-oxm:${springVersion}",
+            spring_jdbc                        : "org.springframework:spring-jdbc:${springVersion}",
+            spring_orm                         : "org.springframework:spring-orm:${springVersion}",
+
+            spring_boot                        : "org.springframework.boot:spring-boot:${springBootVersion}",
+            spring_boot_starter                : "org.springframework.boot:spring-boot-starter:${springBootVersion}",
+            spring_boot_starter_web            : "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            spring_boot_starter_data_jpa       : "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
+            spring_boot_starter_actuator       : "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}",
+            spring_boot_starter_freemarker     : "org.springframework.boot:spring-boot-starter-freemarker:${springBootVersion}",
+            spring_boot_starter_thymeleaf      : "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}",
+            spring_boot_starter_test           : "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
+            spring_boot_starter_jetty          : "org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}",
+            spring_boot_starter_tomcat         : "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}",
+            spring_boot_configuration_processor: "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}",
+            tomcat_embed_jasper                : "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatEmbedVersion}",
+            thymeleaf_layout_dialect           : "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafLayoutDialectVersion}",
+
+            spring_data_jpa                    : "org.springframework.data:spring-data-jpa:${springDataJpaVersion}",
+            spring_data_commons                : "org.springframework.data:spring-data-commons:${springDataCommonsVersion}",
+            hibernate_jpa_2_1_api              : "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${hibernateJpa21ApiVersion}",
+            druid                              : "com.alibaba:druid:${druidVersion}",
+            sql2o                              : "org.sql2o:sql2o:${sql2oVersion}",
+            mybatis                            : "org.mybatis:mybatis:${mybatisVersion}",
+            mybatis_spring                     : "org.mybatis:mybatis-spring:${mybatisSpringVersion}",
+            mybatis_pagehelper                 : "com.github.pagehelper:pagehelper:${mybatisPagehelperVersion}",
+            postgresql_jdbc                    : "org.postgresql:postgresql:${postgresqlJdbcVersion}",
+            quartz                             : "org.quartz-scheduler:quartz:${quartzVersion}",
+            quartz_jobs                        : "org.quartz-scheduler:quartz-jobs:${quartzVersion}",
+            fastjson                           : "com.alibaba:fastjson:${fastjsonVersion}",
+            jackson_core                       : "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+            jackson_databind                   : "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            jackson_annotations                : "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+            poi                                : "org.apache.poi:poi:${poiVersion}",
+            poi_ooxml                          : "org.apache.poi:poi-ooxml:${poiVersion}",
+            poi_ooxml_schemas                  : "org.apache.poi:poi-ooxml-schemas:${poiVersion}",
+            hsqldb                             : "org.hsqldb:hsqldb:${hsqldbVersion}",
+            commons_codec                      : "commons-codec:commons-codec:${commonsCodecVersion}",
+            commons_lang3                      : "org.apache.commons:commons-lang3:${commonsLang3Version}",
+            commons_net                        : "commons-net:commons-net:${commonsNetVersion}",
+            spark                              : "com.sparkjava:spark-core:${sparkVersion}",
+            ehcache                            : "net.sf.ehcache:ehcache:${ehcacheVersion}",
+            zookeeper                          : "org.apache.zookeeper:zookeeper:${zookeeperVersion}",
+            zkclient                           : "com.101tec:zkclient:${zkclientVersion}",
+            dubbo                              : "com.alibaba:dubbo:${dubboVersion}",
+            netty3                             : "io.netty:netty:${netty3Version}",
+            netty4                             : "io.netty:netty-all:${netty4Version}",
+            javassist                          : "org.javassist:javassist:${javassistVersion}",
+            querydsl_core                      : "com.mysema.querydsl:querydsl-core:${querydslVersion}",
+            querydsl_apt                       : "com.mysema.querydsl:querydsl-apt:${querydslVersion}",
+            querydsl_jpa                       : "com.mysema.querydsl:querydsl-jpa:${querydslVersion}",
+            aspectjrt                          : "org.aspectj:aspectjrt:${aspectjrtVersion}",
+            gson                               : "com.google.code.gson:gson:${gsonVersion}",
+            guava                              : "com.google.guava:guava:${guavaVersion}",
+            guice                              : "com.google.inject:guice:${guiceVersion}",
+            guice_no_aop                       : "com.google.inject:guice:${guiceVersion}:no_aop",
+            guice_dagger_adapter               : "com.google.inject.extensions:guice-dagger-adapter:${guiceVersion}",
+            rxjava                             : "io.reactivex:rxjava:${rxJavaVersion}",
+            joda_time                          : "joda-time:joda-time:${jodaTimeVersion}",
+            xstream                            : "com.thoughtworks.xstream:xstream:${xstreamVersion}",
+            mysql_connector_java               : "mysql:mysql-connector-java:${mysql_connector_javaVersion}",
+            ojdbc14                            : "com.oracle:ojdbc14:${ojdbc14Version}",
+            spring_data_redis                  : "org.springframework.data:spring-data-redis:${spring_data_redisVersion}",
+            jedis                              :"redis.clients:jedis:${jedisVersion}"
+    ]
+}
