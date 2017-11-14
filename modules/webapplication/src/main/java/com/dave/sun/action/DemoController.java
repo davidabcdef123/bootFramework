@@ -1,7 +1,7 @@
 package com.dave.sun.action;
 
 import com.dave.sun.common.config.error.MyException;
-import com.dave.sun.service.DemoService;
+import com.dave.sun.service.IDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DemoController {
 
     @Autowired
-    DemoService demoService;
+    IDemoService demoService;
 
     @RequestMapping("/")
     public String index(ModelMap modelMap){
@@ -47,6 +47,13 @@ public class DemoController {
     @ResponseBody
     public String redisAdd(){
         demoService.redisAdd();
+        return "";
+    }
+
+    @RequestMapping("userAdd")
+    @ResponseBody
+    public String userAdd(){
+        demoService.userAdd();
         return "";
     }
 

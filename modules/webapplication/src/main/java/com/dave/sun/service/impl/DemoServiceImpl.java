@@ -1,28 +1,30 @@
 package com.dave.sun.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.dave.sun.service.DemoService;
+import com.dave.sun.IDemoMapper;
+import com.dave.sun.service.IDemoService;
 import com.dave.sun.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Super.Sun on 2017/11/13.
  */
 @Service
-public class DemoServiceImpl implements DemoService {
+public class DemoServiceImpl implements IDemoService {
 
     @Autowired
     RedisTemplate redisTemplate;
 
     @Resource(name="redisTemplate")
     ValueOperations<Object, Object> valOps; //4
+
+    @Autowired
+    IDemoMapper demoMapper;
 
   /*  @Autowired
     @Qualifier("redisTemplate")
@@ -45,5 +47,10 @@ public class DemoServiceImpl implements DemoService {
 
         /*valOps.set("test1","张三");
         valOps.set("test2","李四", TimeUnit.HOURS.toMinutes(1));*/
+    }
+
+    @Override
+    public int userAdd() {
+        return demoMapper.insert("张三", 11);
     }
 }

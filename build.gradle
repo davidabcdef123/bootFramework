@@ -12,9 +12,13 @@ buildscript {
     }
 }
 
+
 configure(allprojects) { project ->
     group 'com.dave'
     version '1.0-SNAPSHOT'
+    //apply plugin: 'spring-boot'
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
     ext.gradleScriptDir = "${rootDir}/gradle"
     apply from: "${gradleScriptDir}/common.gradle"
     repositories {
@@ -27,10 +31,7 @@ configure(allprojects) { project ->
     }
 }
 
-ext{
-    springVersion="1.5.8.RELEASE"
-    httpclientVersion="4.3.3"
-}
+
 
 dependencies {
 

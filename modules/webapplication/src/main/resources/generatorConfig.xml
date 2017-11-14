@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+
+	<classPathEntry location="D:\Program Files (x86)\apache-maven-3.5.0-bin\download\postgresql-42.1.1.jar" />
+	<context id="conteeee1">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+			<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		</commentGenerator>
+		<jdbcConnection driverClass="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://172.17.5.20:5432/rdcs"
+						userId="dev_zhaopin"
+			password="zhaopin123" />
+		<!-- 生成实体对象 -->
+<!--		<javaModelGenerator targetPackage="com.zhaopin.assets.cmp.vo"
+			targetProject="admin" />
+		&lt;!&ndash; 生成Mapper映射xml &ndash;&gt;
+		<sqlMapGenerator targetPackage="com.zhaopin.assets.cmp.dao"
+			targetProject="admin" />
+		&lt;!&ndash; 生成dao接口 &ndash;&gt;
+		<javaClientGenerator targetPackage="com.zhaopin.assets.cmp.dao"
+			targetProject="admin" type="XMLMAPPER" />-->
+
+
+		<javaModelGenerator targetPackage="temp"
+							targetProject="zhaopin.assets.cmp" />
+		<!-- 生成Mapper映射xml -->
+		<sqlMapGenerator targetPackage="temp"
+						 targetProject="zhaopin.assets.cmp" />
+		<!-- 生成dao接口 -->
+		<javaClientGenerator targetPackage="temp"
+							 targetProject="zhaopin.assets.cmp" type="XMLMAPPER" />
+		
+		<!-- 数据库表 -->
+		<table schema="" tableName="staff_appeal"></table>
+	<!--<table schema="" tableName="cmpcontractproductdetail"></table>-->
+<!--		<table schema="" tableName="tb_pda_app"></table>
+		<table schema="" tableName="tb_pda_electricity"></table>
+		<table schema="" tableName="tb_pda_location"></table>
+		<table schema="" tableName="tb_pda_ram"></table>
+		<table schema="" tableName="tb_pda_ram_detail"></table>
+		<table schema="" tableName="tb_pda_tel_time"></table>-->
+<!-- 		<table schema="kingbans" tableName="users"></table> -->
+<!-- 		<table schema="kingbans" tableName="principal_account"></table> -->
+<!-- 		<table schema="kingbans" tableName="sub_account"></table> -->
+<!-- 		<table schema="kingbans" tableName="virtual_account"></table> -->
+<!-- 		<table schema="kingbans" tableName="reward_money"></table> -->
+<!-- 		<table schema="kingbans" tableName="basic_rate"></table> -->
+<!-- 		<table schema="" tableName="sys_users"></table>
+		<table schema="" tableName="sys_roles"></table>
+		<table schema="" tableName="sys_resource"></table> -->
+<!-- 		<table schema="sys" tableName="sys_user"></table>
+		<table schema="sys" tableName="sys_role"></table> -->
+		
+<!-- 		<table schema="kingbans" tableName="additional_rate"></table> -->
+<!-- 		<table schema="kingbans" tableName="reward_rate"></table> -->
+<!-- 		<table schema="kingbans" tableName="modify_record"></table> -->
+<!-- 		<table schema="kingbans" tableName="administrator"></table> -->
+<!-- 		<table schema="kingbans" tableName="SMS_LOG"></table> -->
+<!-- 		<table schema="kingbans" tableName="administrator_role"></table> -->
+<!-- 		<table schema="kingbans" tableName="role"></table> -->
+<!-- 		<table schema="kingbans" tableName="role_function"></table> -->
+<!-- 		<table schema="kingbans" tableName="menu"></table> -->
+<!-- 		<table schema="kingbans" tableName="function"></table> -->
+<!-- 		<table schema="kingbans" tableName="menu_function"></table> -->
+<!-- 		<table schema="kingbans" tableName="transaction"></table> -->
+<!-- 		<table schema="kingbans" tableName="settle"></table> -->
+<!-- 		<table schema="kingbans" tableName="frozen"></table> -->
+	</context>
+</generatorConfiguration>
