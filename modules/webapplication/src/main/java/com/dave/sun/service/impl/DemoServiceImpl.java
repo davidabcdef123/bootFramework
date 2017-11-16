@@ -1,7 +1,7 @@
 package com.dave.sun.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.dave.sun.IDemoMapper;
+import com.dave.sun.dao.UserMapper;
 import com.dave.sun.service.IDemoService;
 import com.dave.sun.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class DemoServiceImpl implements IDemoService {
     ValueOperations<Object, Object> valOps; //4
 
     @Autowired
-    IDemoMapper demoMapper;
+    UserMapper demoMapper;
 
   /*  @Autowired
     @Qualifier("redisTemplate")
@@ -51,6 +51,12 @@ public class DemoServiceImpl implements IDemoService {
 
     @Override
     public int userAdd() {
-        return demoMapper.insert("张三", 11);
+        try {
+             //demoMapper.insert("张三", 11);
+            demoMapper.findByName("张三");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

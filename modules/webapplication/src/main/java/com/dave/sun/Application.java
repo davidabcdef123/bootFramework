@@ -15,7 +15,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @SpringBootApplication
 @EnableWebMvc
-@ComponentScan("com")
+//@ComponentScan("com")
+@MapperScan(basePackages = {"com.dave.sun.dao"})
 public class Application {
 
     public static final Logger logger;
