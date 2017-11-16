@@ -3,17 +3,23 @@
 <generatorConfiguration>
 
 
-	<classPathEntry location="D:\Program Files (x86)\apache-maven-3.5.0-bin\download\postgresql-42.1.1.jar" />
+	<classPathEntry location="D:\Program Files (x86)\gradle-1.11-all\download\caches\modules-2\files-2.1\mysql\mysql-connector-java\5.1.38\dbbd7cd309ce167ec8367de4e41c63c2c8593cc5\mysql-connector-java-5.1.38.jar" />
 	<context id="conteeee1">
 		<commentGenerator>
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
 			<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		</commentGenerator>
-		<jdbcConnection driverClass="org.postgresql.Driver"
-			connectionURL="jdbc:postgresql://172.17.5.20:5432/rdcs"
-						userId="dev_zhaopin"
-			password="zhaopin123" />
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/jeesite?serverTimezone=UTC"
+						userId="root"
+			password="1234" />
+		<!-- 类型转换 -->
+		<javaTypeResolver>
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
 		<!-- 生成实体对象 -->
 <!--		<javaModelGenerator targetPackage="com.zhaopin.assets.cmp.vo"
 			targetProject="admin" />
@@ -25,18 +31,29 @@
 			targetProject="admin" type="XMLMAPPER" />-->
 
 
-		<javaModelGenerator targetPackage="temp"
-							targetProject="zhaopin.assets.cmp" />
+		<javaModelGenerator targetPackage="com.dave.sun.vo"
+							targetProject="webapplication" />
 		<!-- 生成Mapper映射xml -->
-		<sqlMapGenerator targetPackage="temp"
-						 targetProject="zhaopin.assets.cmp" />
+		<sqlMapGenerator targetPackage="com.dave.sun.dao"
+						 targetProject="webapplication" />
 		<!-- 生成dao接口 -->
-		<javaClientGenerator targetPackage="temp"
-							 targetProject="zhaopin.assets.cmp" type="XMLMAPPER" />
+		<javaClientGenerator targetPackage="com.dave.sun.dao"
+							 targetProject="webapplication" type="ANNOTATEDMAPPER" />
 		
 		<!-- 数据库表 -->
-		<table schema="" tableName="staff_appeal"></table>
-	<!--<table schema="" tableName="cmpcontractproductdetail"></table>-->
+		<!-- 配置表信息 -->
+		<table schema="" tableName="sys_user"
+			   domainObjectName="UserEntity" enableCountByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   enableUpdateByExample="false">
+			<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
+                是否生成 example类   -->
+
+			<!-- 忽略列，不生成bean 字段 -->
+			<ignoreColumn column="FRED" />
+			<!-- 指定列的java数据类型 -->
+			<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+		</table>
 <!--		<table schema="" tableName="tb_pda_app"></table>
 		<table schema="" tableName="tb_pda_electricity"></table>
 		<table schema="" tableName="tb_pda_location"></table>

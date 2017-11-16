@@ -57,6 +57,46 @@ public class DemoController {
         return "";
     }
 
+    @RequestMapping("queryUser")
+    @ResponseBody
+    public String queryUser(){
+        return demoService.queryUser().size()+"";
+    }
 
+    @RequestMapping("deleteByPrimaryKey")
+    @ResponseBody
+    public String deleteByPrimaryKey(){
+        return demoService.deleteByPrimaryKey()+"";
+    }
 
+    @RequestMapping("insert")
+    @ResponseBody
+    public String insert(){
+        return demoService.insert()+"";
+    }
+
+    @RequestMapping("insertSelective")
+    @ResponseBody
+    public String insertSelective(){
+        return demoService.insertSelective()+"";
+    }
+
+    @RequestMapping(value="selectByPrimaryKey",produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public String selectByPrimaryKey(){
+        String result=demoService.selectByPrimaryKey().getName();
+        return result;
+    }
+
+    @RequestMapping("updateByPrimaryKeySelective")
+    @ResponseBody
+    public String updateByPrimaryKeySelective(){
+        return demoService.updateByPrimaryKeySelective()+"";
+    }
+
+    @RequestMapping("selectByExample")
+    @ResponseBody
+    public String selectByExample(){
+        return demoService.selectByExample().size()+"";
+    }
 }
