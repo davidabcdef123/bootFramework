@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Super.Sun on 2017/11/13.
@@ -36,26 +37,29 @@ public class DemoServiceImpl implements IDemoService {
 
     @Override
     public void redisAdd() {
-        /*try {
-            User user1 = new User("张三", 11, "2222@qq.com");
-            ValueOperations<String, User> operations=redisTemplate.opsForValue();
+        try {
+            UserEntity user1 = new UserEntity();
+            user1.setName("张三");
+            user1.setId("123");
+            user1.setEmail("2222@qq.com");
+            ValueOperations<String, UserEntity> operations=redisTemplate.opsForValue();
             operations.set("user1",user1);
             valOps.set("user3", JSON.toJSONString(user1));
             valOps.set("user2",user1);
-            User userR=operations.get("user1");
+            UserEntity userR=operations.get("user1");
             System.out.println(userR.getName());
             System.out.println(valOps.get("user3"));
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
-        /*valOps.set("test1","张三");
-        valOps.set("test2","李四", TimeUnit.HOURS.toMinutes(1));*/
+        valOps.set("test1","张三");
+        valOps.set("test2","李四", TimeUnit.HOURS.toMinutes(1));
     }
 
     @Override
     public int userAdd() {
-      /*  try {
+       /* try {
              demoMapper.insert("张三", 99);
             //demoMapper.findByName("张三");
         } catch (Exception e) {
