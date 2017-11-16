@@ -1,7 +1,8 @@
 package com.dave.sun.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.dave.sun.dao.UserEntityMapper;
+import com.dave.sun.dao.test1.UserEntityMapper;
+import com.dave.sun.dao.test2.UserMapper2;
 import com.dave.sun.service.IDemoService;
 import com.dave.sun.vo.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class DemoServiceImpl implements IDemoService {
     UserMapper demoMapper;*/
     @Autowired
     UserEntityMapper userEntityMapper;
+
+    @Autowired
+    UserMapper2 userMapper2;
 
   /*  @Autowired
     @Qualifier("redisTemplate")
@@ -143,6 +147,26 @@ public class DemoServiceImpl implements IDemoService {
         user.setId("1");
         List<UserEntity> list=userEntityMapper.selectByExample(user);
         return list;
+    }
+
+    @Override
+    public void datesource1() {
+        List<UserEntity> userEntities= null;
+        try {
+            userEntities = userEntityMapper.selectByExample(new UserEntity("张三"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(userEntities.get(0).getName());
+    }
+
+    @Override
+    public void datesource2() {
+        try {
+            System.out.println(userMapper2.query());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

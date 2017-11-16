@@ -1,5 +1,6 @@
 package com;
 
+import com.dave.sun.Application;
 import com.dave.sun.service.IDemoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Created by Super.Sun on 2017/11/16.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 public class Test3 {
 
     @Autowired

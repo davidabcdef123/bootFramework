@@ -1,4 +1,4 @@
-package com.dave.sun.dao;
+package com.dave.sun.dao.test1;
 
 import com.dave.sun.vo.UserEntity;
 import org.apache.ibatis.annotations.*;

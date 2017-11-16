@@ -25,4 +25,8 @@ public interface IDemoService {
     public int updateByPrimaryKey();
 
     public List<UserEntity> selectByExample();
+
+    public void datesource1();
+
+    public void datesource2();
 }

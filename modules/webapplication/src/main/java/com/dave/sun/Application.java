@@ -5,15 +5,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by Super.Sun on 2017/11/11.
  */
 @SpringBootApplication
-@EnableWebMvc
+@EnableScheduling
+@EnableAsync
+//@EnableWebMvc
 //@ComponentScan("com")
-@MapperScan(basePackages = {"com.dave.sun.dao"})
+//@MapperScan(basePackages = {"com.dave.sun.dao"})
 public class Application {
 
     public static final Logger logger;

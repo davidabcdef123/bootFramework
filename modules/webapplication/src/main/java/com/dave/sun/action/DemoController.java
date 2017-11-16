@@ -94,4 +94,18 @@ public class DemoController {
         System.out.println(name);
         return "";
     }
+
+    @GetMapping("datesource1")
+    @ResponseBody
+    public String datesource1(){
+        demoService.datesource1();
+        return "";
+    }
+
+    @GetMapping("datesource2")
+    @ResponseBody
+    public String datesource2(){
+        demoService.datesource2();
+        return "";
+    }
 }
