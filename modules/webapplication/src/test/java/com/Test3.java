@@ -1,6 +1,5 @@
 package com;
 
-import com.dave.sun.action.DemoController;
 import com.dave.sun.service.IDemoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

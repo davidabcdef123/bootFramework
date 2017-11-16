@@ -1,10 +1,8 @@
 package com.dave.sun.dao;
 
 import com.dave.sun.vo.UserEntity;
-import org.apache.ibatis.jdbc.SQL;
 
 import static org.apache.ibatis.jdbc.SqlBuilder.*;
-import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
 public class UserEntitySqlProvider {
 
