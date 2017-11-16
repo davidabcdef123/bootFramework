@@ -52,8 +52,8 @@ public class DemoServiceImpl implements IDemoService {
     @Override
     public int userAdd() {
         try {
-             //demoMapper.insert("张三", 11);
-            demoMapper.findByName("张三");
+             demoMapper.insert("张三", 99);
+            //demoMapper.findByName("张三");
         } catch (Exception e) {
             e.printStackTrace();
         }

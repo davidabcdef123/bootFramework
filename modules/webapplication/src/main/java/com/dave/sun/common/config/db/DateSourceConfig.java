@@ -13,10 +13,10 @@ import javax.sql.DataSource;
 /**
  * Created by Super.Sun on 2017/11/13.
  */
-@Configuration
+//@Configuration
 public class DateSourceConfig {
 
-    @Bean(name = "primaryDataSource")
+    /*@Bean(name = "primaryDataSource")
     @Qualifier("primaryDataSource")
     @ConfigurationProperties(prefix="spring.datasource.primary")
     public DataSource primaryDataSource() {
@@ -43,5 +43,5 @@ public class DateSourceConfig {
             @Qualifier("secondaryDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-
+*/
 }

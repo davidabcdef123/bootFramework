@@ -6,7 +6,7 @@
 
 
     <insert id="insert" >
-        INSERT INTO USER(NAME, AGE) VALUES(#{name}, #{age})
+        INSERT INTO USER (NAME, age)VALUES(#{name},#{age})
     </insert>
 
 
