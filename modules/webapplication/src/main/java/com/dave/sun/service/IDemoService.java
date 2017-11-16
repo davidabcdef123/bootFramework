@@ -12,10 +12,6 @@ public interface IDemoService {
 
     public void redisAdd();
 
-    public int userAdd();
-
-    public List queryUser();
-
     public int deleteByPrimaryKey();
 
     public int insert();

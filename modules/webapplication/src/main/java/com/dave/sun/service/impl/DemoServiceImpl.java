@@ -57,24 +57,6 @@ public class DemoServiceImpl implements IDemoService {
         valOps.set("test2","李四", TimeUnit.HOURS.toMinutes(1));
     }
 
-    @Override
-    public int userAdd() {
-       /* try {
-             demoMapper.insert("张三", 99);
-            //demoMapper.findByName("张三");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        return 0;
-    }
-
-    @Override
-    public List queryUser() {
-        /*List<User> list=demoMapper.getAll();
-        System.out.println(list.size());
-        return list;*/
-        return null;
-    }
 
     @Override
     public int deleteByPrimaryKey() {

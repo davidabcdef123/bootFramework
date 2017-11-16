@@ -50,19 +50,6 @@ public class DemoController {
         return "";
     }
 
-    @RequestMapping("userAdd")
-    @ResponseBody
-    public String userAdd(){
-        demoService.userAdd();
-        return "";
-    }
-
-    @RequestMapping("queryUser")
-    @ResponseBody
-    public String queryUser(){
-        return demoService.queryUser().size()+"";
-    }
-
     @RequestMapping("deleteByPrimaryKey")
     @ResponseBody
     public String deleteByPrimaryKey(){
