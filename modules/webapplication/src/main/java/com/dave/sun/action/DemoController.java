@@ -5,6 +5,7 @@ import com.dave.sun.service.IDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -85,5 +86,12 @@ public class DemoController {
     @ResponseBody
     public String selectByExample(){
         return demoService.selectByExample().size()+"";
+    }
+
+    @GetMapping("testCinaese")
+    @ResponseBody
+    public String testCinaese(String name){
+        System.out.println(name);
+        return "";
     }
 }
