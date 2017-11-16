@@ -38,12 +38,12 @@
 						 targetProject="webapplication" />
 		<!-- 生成dao接口 -->
 		<javaClientGenerator targetPackage="com.dave.sun.dao"
-							 targetProject="webapplication" type="ANNOTATEDMAPPER" />
+							 targetProject="webapplication" type="XMLMAPPER" />
 		
 		<!-- 数据库表 -->
 		<!-- 配置表信息 -->
-		<table schema="" tableName="sys_user"
-			   domainObjectName="UserEntity" enableCountByExample="false"
+		<table schema="" tableName="sys_role"
+			   domainObjectName="RoleEntity" enableCountByExample="false"
 			   enableDeleteByExample="false" enableSelectByExample="false"
 			   enableUpdateByExample="false">
 			<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
