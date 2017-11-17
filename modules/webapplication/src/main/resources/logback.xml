@@ -67,7 +67,10 @@
     </appender>
 
     <logger name="org.mybatis" level="DEBUG" />
-    <logger name="org.springframework" level="INFO" />
+    <logger name="org.springframework" level="INFO" >
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DEBUG_LOG"/>
+    </logger>
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="DEBUG_LOG"/>
