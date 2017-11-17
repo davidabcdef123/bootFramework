@@ -7,16 +7,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
+//@Component
 public class Sender {
 
-	@Autowired
-	private AmqpTemplate rabbitTemplate;
+	/*@Autowired
+	private AmqpTemplate rabbitTemplate;*/
 
 	public void send() {
 		String context = "hello " + new Date();
 		System.out.println("Sender : " + context);
-		this.rabbitTemplate.convertAndSend("hello", context);
+		//this.rabbitTemplate.convertAndSend("hello", context);
 	}
 
 }

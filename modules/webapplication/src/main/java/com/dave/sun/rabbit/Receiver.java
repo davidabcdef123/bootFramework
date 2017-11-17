@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component
-@RabbitListener(queues = "hello")
+//@Component
+//@RabbitListener(queues = "hello")
 public class Receiver {
 
-    @RabbitHandler
+    //@RabbitHandler
     public void process(String hello) {
         System.out.println("Receiver : " + hello);
     }
