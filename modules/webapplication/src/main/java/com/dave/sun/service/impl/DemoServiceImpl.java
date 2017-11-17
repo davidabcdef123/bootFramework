@@ -5,6 +5,8 @@ import com.dave.sun.dao.test1.UserEntityMapper;
 import com.dave.sun.dao.test2.UserMapper2;
 import com.dave.sun.service.IDemoService;
 import com.dave.sun.vo.UserEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -20,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class DemoServiceImpl implements IDemoService {
+
+    private static final Logger LOGGER= LoggerFactory.getLogger(DemoServiceImpl.class);
 
     @Autowired
     RedisTemplate redisTemplate;

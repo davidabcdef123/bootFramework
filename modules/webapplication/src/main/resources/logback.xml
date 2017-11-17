@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The following code is allowed to be used internally in MMS only,
+  ~ you are not permitted neither to use the contents nor disclose it in any
+  ~ manner to third parties.
+  ~
+  ~ Copyright (c) 2015 MMS. All rights reserved.
+  -->
+<configuration scan="true" scanPeriod="60 seconds">
+    <!--<timestamp datePattern="yyyyMMdd'T'HHmmss" key="bySecond"/>-->
+    <property name="LOG_DIR" value="/data/logs/bootframe"/>
+    <property name="APP_NAME" value="bootFarme"/>
+    <!--<property name="BASIC_LOG_NAME" value="${APP_NAME}_basic"/>-->
+    <property name="DEBUG_LOG_NAME" value="${APP_NAME}_debug"/>
+    <property name="ERROR_LOG_NAME" value="${APP_NAME}_error"/>
+
+    <!-- Create a file appender for STDOUT -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Create a file appender for DEBUG-level messages -->
+    <appender name="DEBUG_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${DEBUG_LOG_NAME}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover period -->
+            <fileNamePattern>${LOG_DIR}/${DEBUG_LOG_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+           <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Create a file appender for ERROR-level messages -->
+    <appender name="ERROR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${ERROR_LOG_NAME}.log</file>
+        <!--<file>${LOG_DIR}/error-${bySecond}.log</file>-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover period -->
+            <fileNamePattern>${LOG_DIR}/${ERROR_LOG_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="org.mybatis" level="DEBUG" />
+    <logger name="org.springframework" level="INFO" />
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DEBUG_LOG"/>
+        <appender-ref ref="ERROR_LOG"/>
+    </root>
+</configuration>

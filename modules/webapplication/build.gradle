@@ -21,6 +21,7 @@ apply plugin: 'war'
 ext {
     springVersion = "1.5.8.RELEASE"
     httpclientVersion = "4.3.3"
+    slf4jVersion="1.7.12"
 }
 dependencies {
     //****************boot start
@@ -31,6 +32,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc:$springVersion")
     compile("org.springframework.boot:spring-boot-starter-data-redis:$springVersion")
     compile("org.springframework.boot:spring-boot-starter-aop:$springVersion")
+    compile("org.springframework.boot:spring-boot-starter-logging:$springVersion")
     //mq
     compile("org.springframework.boot:spring-boot-starter-amqp:$springVersion")
     //动态修改日志级别的依赖
@@ -51,6 +53,7 @@ dependencies {
     compile("com.alibaba:fastjson:1.2.12")
     compile("org.apache.httpcomponents:httpcore:$httpclientVersion")
     compile("org.apache.httpcomponents:httpclient:$httpclientVersion")
-    compile("org.slf4j:slf4j-api:1.7.12")
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    compile("org.slf4j:slf4j-log4j12:$slf4jVersion")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
