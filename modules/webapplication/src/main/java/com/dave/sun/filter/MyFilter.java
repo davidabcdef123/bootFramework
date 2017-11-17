@@ -17,20 +17,20 @@ public class MyFilter implements Filter{
     private static final Logger LOGGER= LoggerFactory.getLogger(MyFilter.class);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        LOGGER.info("myFilter初始化");
+        //LOGGER.info("myFilter初始化");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        LOGGER.info("myFilter过滤");
+        //LOGGER.info("myFilter过滤");
         String name= request.getParameter("name");
-        LOGGER.info("name="+name);
+        //LOGGER.info("name="+name);
         chain.doFilter(request,response);
 
     }
 
     @Override
     public void destroy() {
-        LOGGER.info("myFilter销毁");
+        //LOGGER.info("myFilter销毁");
     }
 }

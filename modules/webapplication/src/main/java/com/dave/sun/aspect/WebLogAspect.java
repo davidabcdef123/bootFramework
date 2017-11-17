@@ -1,11 +1,12 @@
 package com.dave.sun.aspect;
 
-import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -30,7 +31,8 @@ import java.util.Map;
 @Component
 public class WebLogAspect {
 
-    private Logger logger = Logger.getLogger(getClass());
+    //private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
 
     ThreadLocal<Long> startTime = new ThreadLocal<>();
 
@@ -47,11 +49,11 @@ public class WebLogAspect {
         if (attributes != null) {
             HttpServletRequest request = attributes.getRequest();
             // 记录下请求内容
-            logger.info("URL : " + request.getRequestURL().toString());
+            /*logger.info("URL : " + request.getRequestURL().toString());
             logger.info("HTTP_METHOD : " + request.getMethod());
             logger.info("IP : " + request.getRemoteAddr());
             logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-            logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
+            logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));*/
             getHeadersInfo(request);
         }
     }
@@ -79,8 +81,8 @@ public class WebLogAspect {
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
-        logger.info("RESPONSE : " + ret);
-        logger.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));
+       /* logger.info("RESPONSE : " + ret);
+        logger.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));*/
     }
 
     /**
@@ -95,8 +97,8 @@ public class WebLogAspect {
         while (headerNames.hasMoreElements()) {
             String key = (String) headerNames.nextElement();
             String value = request.getHeader(key);
-            System.out.println("key="+key);
-            System.out.println("value="+value);
+            /*System.out.println("key="+key);
+            System.out.println("value="+value);*/
             map.put(key, value);
         }
         return map;
