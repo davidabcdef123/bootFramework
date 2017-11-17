@@ -71,6 +71,7 @@
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="DEBUG_LOG"/>
     </logger>
+    <logger name="com.alibaba.druid" level="DEBUG" />
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="DEBUG_LOG"/>
