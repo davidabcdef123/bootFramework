@@ -1,8 +1,6 @@
 package com;
 
 import com.dave.sun.Application;
-import org.apache.commons.collections.map.HashedMap;
-import org.apache.velocity.app.VelocityEngine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.internet.MimeMessage;
 import java.io.File;
@@ -25,14 +25,14 @@ import java.util.Map;
 @SpringBootTest(classes = Application.class)
 public class MailTest {
 
-    public static String from="";
-    public static String to = "";
+    public static String from="1111@qq.com";
+    public static String to = "111111111";
 
     @Autowired
     private JavaMailSender mailSender;
-    //注入会有问题
-    /*@Autowired
-    private VelocityEngine velocityEngine;*/
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
     @Test
     public void sendSimpleMail() throws Exception {
@@ -79,6 +79,24 @@ public class MailTest {
         helper.addInline("weixinaaa", file);
 
         mailSender.send(mimeMessage);
+    }
+
+    @Test
+    public void sendTemplateMail() {
+        //创建邮件正文
+        Context context = new Context();
+        context.setVariable("id", "006");
+        String emailContent = templateEngine.process("emailTemplate", context);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("主题：这是模板邮件");
+        message.setText(emailContent);
+
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+        }
     }
 
     /*@Test
