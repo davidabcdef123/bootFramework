@@ -1,6 +1,5 @@
 package com.dave.sun.filter;
 
-import com.dave.sun.service.impl.DemoServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

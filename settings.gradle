@@ -1,7 +1,6 @@
 rootProject.name = 'bootFramework'
 include 'modules/api'
 include 'modules/webapplication'
-include 'modules/mybatisTest'
 
 rootProject.children.each { ProjectDescriptor project ->
     def projectName = project.name

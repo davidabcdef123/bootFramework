@@ -14,8 +14,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
- */
 @Configuration
 @MapperScan(basePackages = "com.dave.sun.dao.test2", sqlSessionTemplateRef  = "secondSqlSessionTemplate")
 public class DataSourceSecondConfig {

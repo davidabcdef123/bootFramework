@@ -1,11 +1,6 @@
 package com.dave.sun.common.config.db;
 
 import com.alibaba.druid.support.http.StatViewServlet;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
 
 /**
  * Created by Super.Sun on 2017/11/17.

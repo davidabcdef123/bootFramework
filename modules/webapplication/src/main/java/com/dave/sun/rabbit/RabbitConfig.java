@@ -2,7 +2,6 @@ package com.dave.sun.rabbit;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by Super.Sun on 2017/11/17.

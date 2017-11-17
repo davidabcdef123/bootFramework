@@ -13,19 +13,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Web层日志切面
- *
- * @author 程序猿DD
- * @version 1.0.0
- * @date 16/5/17 上午10:42.
- * @blog http://blog.didispace.com
- */
 @Aspect
 @Order(5)
 @Component
