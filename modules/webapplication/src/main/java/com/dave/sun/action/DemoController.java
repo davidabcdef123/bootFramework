@@ -116,7 +116,7 @@ public class DemoController {
     public String add(@Valid UserEntity userEntity, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             // return bindingResult.getFieldError().getDefaultMessage();
-            return "emailTemplate";
+            return "paramerror";
         }else{
             return "index";
         }
