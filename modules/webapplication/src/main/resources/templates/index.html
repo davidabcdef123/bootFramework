@@ -8,24 +8,28 @@
 
 </head>
 <body>
-${username}
+${username!}
 <span id="test"></span>
 <p></p>
 性别
-<#if sex==0>
-    女
-    <#elseif sex==1>
-        男
-        <#else>
-            保密
+<#if (sex)??>
+    <#if sex==0>
+        女
+        <#elseif sex==1>
+            男
+            <#else>
+                保密
+    </#if>
 </#if>
 
+<#if (list1)??>
 <#list list1 as item>
     <tr>
         <td>${item!}</td>
         <td>${item}</td>
     </tr>
 </#list>
+</#if>
 </body>
 <script>
     $('#test').html('@@@@@@@');

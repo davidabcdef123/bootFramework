@@ -1,6 +1,27 @@
 package com.dave.sun.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
+/*@null           验证对象是否为空
+@notnull     验证对象是否为非空
+@asserttrue       验证 boolean 对象是否为 true
+@assertfalse
+验证 boolean 对象是否为 false
+@min           验证 number 和 string 对象是否大等于指定的值
+@max           验证 number 和 string 对象是否小等于指定的值
+@decimalmin     验证 number 和 string 对象是否大等于指定的值，小数存在精度
+@decimalmax     验证 number 和 string 对象是否小等于指定的值，小数存在精度
+@size           验证对象（array,collection,map,string）长度是否在给定的范围之内
+@digits       验证 number 和 string 的构成是否合法
+@past           验证 date 和 calendar 对象是否在当前时间之前
+@future       验证 date 和 calendar 对象是否在当前时间之后
+@pattern     验证 string 对象是否符合正则表达式的规则
+@Email     验证邮箱*/
 
 public class UserEntity {
     private String id;
@@ -8,13 +29,16 @@ public class UserEntity {
     private String companyId;
 
     private String officeId;
-
+    @NotNull(message = "年龄不能为空")
+    @Min(value = 0, message = "年龄大于 0")
+    @Max(value = 300, message = "年龄不大于 300")
     private String loginName;
 
     private String password;
 
     private String no;
-
+    @NotEmpty(message = "姓名不能为空")
+    @Size(min = 2, max = 8, message = "姓名长度必须大于 2 且小于 20 字")
     private String name;
 
     private String email;

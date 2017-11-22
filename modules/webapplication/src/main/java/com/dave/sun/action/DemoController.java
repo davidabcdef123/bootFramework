@@ -2,13 +2,16 @@ package com.dave.sun.action;
 
 import com.dave.sun.common.config.error.MyException;
 import com.dave.sun.service.IDemoService;
+import com.dave.sun.vo.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,5 +110,15 @@ public class DemoController {
     public String datesource2(){
         demoService.datesource2();
         return "";
+    }
+
+    @GetMapping("add")
+    public String add(@Valid UserEntity userEntity, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            // return bindingResult.getFieldError().getDefaultMessage();
+            return "emailTemplate";
+        }else{
+            return "index";
+        }
     }
 }
