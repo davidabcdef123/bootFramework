@@ -1,15 +1,15 @@
-package com.dave.dubbo;
+package com.dave.api.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Component;
-import com.dave.vo.City;
+import com.dave.api.vo.City;
 
 /**
  * 城市 Dubbo 服务消费者
  *
  * Created by bysocket on 28/02/2017.
  */
-@Component("aaa")
+@Component("city")
 public class CityDubboConsumerService {
 
     @Reference(version = "1.0.0")

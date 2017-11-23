@@ -1,8 +1,9 @@
-package com.dave.dubbo.impl;
+package com.dave.api.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.dave.domain.City;
-import com.dave.dubbo.CityDubboService;
+import com.dave.api.service.CityDubboService;
+import com.dave.api.vo.City;
+
 
 /**
  * 城市业务 Dubbo 服务层实现层

@@ -1,4 +1,4 @@
-package com.dave.domain;
+package com.dave.api.vo;
 
 import java.io.Serializable;
 
@@ -71,5 +71,15 @@ public class City implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", provinceId=" + provinceId +
+                ", cityName='" + cityName + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
