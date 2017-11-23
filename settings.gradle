@@ -1,6 +1,9 @@
 rootProject.name = 'bootFramework'
 include 'modules/api'
 include 'modules/webapplication'
+include 'modules/dubbo-client'
+include 'modules/dubbo-service'
+
 
 rootProject.children.each { ProjectDescriptor project ->
     def projectName = project.name

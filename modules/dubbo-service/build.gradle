@@ -1,0 +1,25 @@
+group 'com.dave'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion = "1.5.8.RELEASE"
+    dubboVersion = "1.0.0"
+}
+dependencies {
+    compile("io.dubbo.springboot:spring-boot-starter-dubbo:$dubboVersion")
+    compile("org.springframework.boot:spring-boot-starter-web:$springVersion")
+    compile("org.springframework.boot:spring-boot-starter:$springVersion")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile("org.springframework.boot:spring-boot-starter-test:$springVersion")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
