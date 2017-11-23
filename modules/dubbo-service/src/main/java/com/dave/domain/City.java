@@ -1,4 +1,4 @@
-package vo;
+package com.dave.domain;
 
 import java.io.Serializable;
 

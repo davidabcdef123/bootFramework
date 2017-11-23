@@ -16,10 +16,8 @@ ext {
 }
 dependencies {
     compile project(':api')
-    compile project(':webapplication')
     compile("io.dubbo.springboot:spring-boot-starter-dubbo:$dubboVersion")
     compile("org.springframework.boot:spring-boot-starter-web:$springVersion")
-    compile("org.springframework.boot:spring-boot-starter:$springVersion")
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile("org.springframework.boot:spring-boot-starter-test:$springVersion")
 }

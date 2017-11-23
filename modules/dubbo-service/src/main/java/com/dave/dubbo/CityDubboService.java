@@ -1,7 +1,7 @@
-package service;
+package com.dave.dubbo;
 
 
-import vo.City;
+import com.dave.domain.City;
 
 /**
  * 城市业务 Dubbo 服务层
