@@ -1,8 +1,9 @@
-package com.dave.api.service;
+package com.dave.dubboclient.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import org.springframework.stereotype.Component;
+import com.dave.api.service.CityDubboService;
 import com.dave.api.vo.City;
+import org.springframework.stereotype.Component;
 
 /**
  * 城市 Dubbo 服务消费者

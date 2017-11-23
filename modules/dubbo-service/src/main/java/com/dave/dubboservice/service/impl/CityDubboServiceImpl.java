@@ -1,4 +1,4 @@
-package com.dave.api.service.impl;
+package com.dave.dubboservice.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.dave.api.service.CityDubboService;
