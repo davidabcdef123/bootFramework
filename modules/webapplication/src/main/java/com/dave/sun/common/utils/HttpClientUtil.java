@@ -1,491 +1,112 @@
 package com.dave.sun.common.utils;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.X509HostnameVerifier;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.net.ssl.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.SocketTimeoutException;
-import java.nio.charset.Charset;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
+import java.util.logging.Logger;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
+/**
+ * httpclient工具类
+ * @author fengjifei
+ *
+ */
+@Deprecated
 public class HttpClientUtil {
-    private static final int MAX_SOKET_TIMEOUT = 12000;
-    private static final int MAX_CONNECTION_TIMEOUT = 12000;
-    private static RequestConfig reqConfig;
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtil.class);
 
-    private HttpClientUtil() {
-    }
+	/*public static String post(String url, Map<String, String> params) {
+	    CloseableHttpClient httpClient =PoolManager.getHttpClient();
+		String body = null;
+		
+		HttpPost post = postForm(url, params);
+		body = invoke(httpClient, post);
+		return body;
+	}
 
-    public static String sendGetRequest(String reqURL, String proxyIp, String proxyPort) {
-        if (!StringUtils.isEmpty(proxyIp) ) {
-            reqConfig = RequestConfig.custom().setProxy(new HttpHost(proxyIp, Integer.parseInt(proxyPort)))
-                    .setSocketTimeout(MAX_SOKET_TIMEOUT)
-                    .setConnectTimeout(MAX_CONNECTION_TIMEOUT)
-                    .setStaleConnectionCheckEnabled(true).build();
-        }else {
-            reqConfig = RequestConfig.custom().setSocketTimeout(MAX_SOKET_TIMEOUT)
-                    .setConnectTimeout(MAX_CONNECTION_TIMEOUT)
-                    .setStaleConnectionCheckEnabled(true).build();
-        }
-        return sendGetRequest(reqURL);
-    }
+	public static String get(String url) {
+	    CloseableHttpClient httpClient =PoolManager.getHttpClient();
+		String body = null;
+		HttpGet get = new HttpGet(url);
+		body = invoke(httpClient, get);
+		return body;
+	}
 
-    private static String sendGetRequest(String reqURL) {
-        String respContent = "通信失败";
-        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(reqConfig).build();
-        //如果有&去除
-        reqURL = Utils.TrimEnd(reqURL, "&");
-        reqURL = Utils.TrimEnd(reqURL, "?");
-        HttpGet httpGet = new HttpGet(reqURL);
-        // LOGGER.info("GET-url："+reqURL);
-        try {
-            CloseableHttpResponse e = httpClient.execute(httpGet);
-            HttpEntity entity = e.getEntity();
-            if (null != entity) {
-                Charset respHeaderDatas = ContentType.getOrDefault(entity).getCharset();
-                //gzf:返回值中文乱码，respHeaderDatas=null;
-                if (respHeaderDatas == null) {
-                    respHeaderDatas = Charset.forName("UTF-8");
-                }
-                respContent = EntityUtils.toString(entity, respHeaderDatas);
-                EntityUtils.consume(entity);
-            }
+	private static String invoke(CloseableHttpClient httpclient,HttpUriRequest httpost) {
+		HttpResponse response = sendRequest(httpclient, httpost);
+		String body = paseResponse(response);
+		return body;
+	}
 
-            // System.out.println("-------------------------------------------------------------------------------------------");
-            StringBuilder respHeaderDatas = new StringBuilder();
-            Header[] respStatusLine = e.getAllHeaders();
-            int respHeaderMsg = respStatusLine.length;
+	private static String paseResponse(HttpResponse response) {
 
-            for (int respBodyMsg = 0; respBodyMsg < respHeaderMsg; ++respBodyMsg) {
-                Header header = respStatusLine[respBodyMsg];
-                respHeaderDatas.append(header.toString()).append("\r\n");
-            }
-            //System.out.println("-------------------------------------------------------------------------------------------");
-        } catch (ConnectTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (SocketTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (ClientProtocolException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (ParseException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (IOException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (Exception e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+		HttpEntity entity = response.getEntity();
 
-        }
+		String charset = EntityUtils.getContentCharSet(entity);
 
-        return respContent;
-    }
+		String body = null;
+		try {
+			body = EntityUtils.toString(entity);
+	
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+		return body;
+	}
 
-    public static String sendGetRequest(String reqURL, Map<String, Object> param, String encodeCharset) {
-        String respContent = "通信失败";
-        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(reqConfig).build();
-        String str_param = HttpClientUtil.getUrlParamsByMap(param);
-        try {
-            if (encodeCharset == null && encodeCharset.length() < 1) {
-                encodeCharset = "utf-8";
-            }
-            reqURL = HttpClientUtil.urlFormat(reqURL, str_param, encodeCharset);
-            //LOGGER.info("GET-url："+reqURL);
-            HttpGet httpGet = new HttpGet(reqURL);
+	private static HttpResponse sendRequest(HttpClient httpclient,
+			HttpUriRequest httpost) {
 
-            CloseableHttpResponse e = httpClient.execute(httpGet);
-            HttpEntity entity = e.getEntity();
-            if (null != entity) {
-                Charset respHeaderDatas = ContentType.getOrDefault(entity).getCharset();
-                //gzf:返回值中文乱码，respHeaderDatas=null;
-                if (respHeaderDatas == null) {
-                    respHeaderDatas = Charset.forName("UTF-8");
-                }
-                respContent = EntityUtils.toString(entity, respHeaderDatas);
-                EntityUtils.consume(entity);
-            }
+		HttpResponse response = null;
 
-            // System.out.println("-------------------------------------------------------------------------------------------");
-            StringBuilder respHeaderDatas = new StringBuilder();
-            Header[] respStatusLine = e.getAllHeaders();
-            int respHeaderMsg = respStatusLine.length;
+		try {
+			response = httpclient.execute(httpost);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
 
-            for (int respBodyMsg = 0; respBodyMsg < respHeaderMsg; ++respBodyMsg) {
-                Header header = respStatusLine[respBodyMsg];
-                respHeaderDatas.append(header.toString()).append("\r\n");
-            }
-        } catch (ConnectTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (SocketTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (ClientProtocolException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (ParseException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (IOException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (Exception e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return respContent;
-    }
-
-    public static String sendPostRequest(String reqURL, String reqData, String encodeCharset, String contentType, String proxyIp, String proxyPort) {
-        if (!StringUtils.isEmpty(proxyIp)) {
-            reqConfig = RequestConfig.custom().setProxy(new HttpHost(proxyIp, Integer.parseInt(proxyPort)))
-                    .setSocketTimeout(MAX_SOKET_TIMEOUT)
-                    .setConnectTimeout(MAX_CONNECTION_TIMEOUT)
-                    .setStaleConnectionCheckEnabled(true).build();
-        }else{
-            reqConfig = RequestConfig.custom().setSocketTimeout(MAX_SOKET_TIMEOUT)
-                    .setConnectTimeout(MAX_CONNECTION_TIMEOUT)
-                    .setStaleConnectionCheckEnabled(true).build();
-        }
-        return sendPostRequest(reqURL, reqData, encodeCharset, contentType);
-    }
-
-    private static String sendPostRequest(String reqURL, String reqData, String encodeCharset, String contentType) {
-        String reseContent = "通信失败";
-        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(reqConfig).build();
-        HttpPost httpPost = new HttpPost(reqURL);
-        try {
-            reqURL = HttpClientUtil.urlFormat(reqURL, reqData, encodeCharset);
-            //LOGGER.info("POST-url："+reqURL);
-            if (encodeCharset == null || encodeCharset.length() < 1) {
-                encodeCharset = "utf-8";
-            }
-            if (contentType == null
-                    || contentType.length() < 1) {
-                contentType = "application/x-www-form-urlencoded";
-            }
-            httpPost.setHeader("Content-Type", "" + contentType + "; charset=" + encodeCharset);
-            httpPost.setEntity(new StringEntity(reqData == null ? "" : reqData, encodeCharset));
-            CloseableHttpResponse e = httpClient.execute(httpPost);
-            HttpEntity entity = e.getEntity();
-
-            if (null != entity) {
-                //gzf:返回中文乱码ContentType.getOrDefault(entity).getCharset()==null;
-                Charset cs = ContentType.getOrDefault(entity).getCharset();
-                if (cs == null) {
-                    cs = Charset.forName("UTF-8");
-                }
-                reseContent = EntityUtils.toString(entity, cs);
-                EntityUtils.consume(entity);
-            }
-        } catch (ConnectTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (SocketTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (Exception e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        return reseContent;
-    }
-
-    public static String sendPostRequestRetCode(String reqURL, String reqData, String encodeCharset, String contentType) {
-        String reseContent = "通信失败";
-        CloseableHttpClient httpClient = null;
-        try {
-
-            httpClient = HttpClients.custom().setDefaultRequestConfig(reqConfig).build();
-
-            //reqURL = HttpClientUtil.urlFormat(reqURL, reqData, encodeCharset);
-            //reqURL = "http://esb.zpidc.com/assetsapi/Operation/SyncAssetsInfo?x-acl-token=6b11c054128c4e358fdcd7caaffb3d52";
-            HttpPost httpPost = new HttpPost(reqURL);
-            httpPost.setHeader("Content-Type", "" + contentType + "; charset=" + encodeCharset);
-            httpPost.setEntity(new StringEntity(reqData == null ? "" : reqData, encodeCharset));
-            CloseableHttpResponse e = httpClient.execute(httpPost);
-            HttpEntity entity = e.getEntity();
-
-            if (null != entity) {
-                //gzf:返回中文乱码ContentType.getOrDefault(entity).getCharset()==null;
-                Charset cs = ContentType.getOrDefault(entity).getCharset();
-                if (cs == null) {
-                    cs = Charset.forName("UTF-8");
-                }
-                reseContent = EntityUtils.toString(entity, cs);
-                reseContent = reseContent.replaceAll("}", ",'httpcode':" + e.getStatusLine().getStatusCode() + "}");
-                reseContent = reseContent.replaceAll("}", ",'code':" + e.getStatusLine().getStatusCode() + "}");
-                EntityUtils.consume(entity);
-            }
-        } catch (ConnectTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (SocketTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } catch (Exception e) {
-            LOGGER.error("请求通信[" + reqURL + "]时连接超时,堆栈轨迹如下", e);
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        return reseContent;
-    }
-
-    public static String sendPostSSLRequest(String reqURL, Map<String, Object> params, String encodeCharset) {
-        String responseContent = "通信失败";
-        X509TrustManager trustManager = new X509TrustManager() {
-            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            }
-
-            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            }
-
-            public X509Certificate[] getAcceptedIssuers() {
-                return null;
-            }
-        };
-        X509HostnameVerifier hostnameVerifier = new X509HostnameVerifier() {
-            public void verify(String host, SSLSocket ssl) throws IOException {
-            }
-
-            public void verify(String host, X509Certificate cert) throws SSLException {
-            }
-
-            public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException {
-            }
-
-            public boolean verify(String arg0, SSLSession arg1) {
-                return true;
-            }
-        };
-
-        try {
-            SSLContext e = SSLContext.getInstance("SSL");
-            e.init((KeyManager[]) null, new TrustManager[]{trustManager}, new SecureRandom());
-            CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(reqConfig).setSSLSocketFactory(new SSLConnectionSocketFactory(e, hostnameVerifier)).build();
-
-            reqURL = HttpClientUtil.urlFormat(reqURL, HttpClientUtil.getUrlParamsByMap(params), encodeCharset);
-
-            HttpPost httpPost = new HttpPost(reqURL);
-            if (null != params) {
-                ArrayList response = new ArrayList();
-                Iterator entity = params.entrySet().iterator();
-
-                while (entity.hasNext()) {
-                    Map.Entry entry = (Map.Entry) entity.next();
-                    response.add(new BasicNameValuePair((String) entry.getKey(), (String) entry.getValue()));
-                }
-
-                httpPost.setEntity(new UrlEncodedFormEntity(response, encodeCharset));
-            }
-
-            CloseableHttpResponse response1 = httpClient.execute(httpPost);
-            HttpEntity entity1 = response1.getEntity();
-            if (null != entity1) {
-                responseContent = EntityUtils.toString(entity1, ContentType.getOrDefault(entity1).getCharset());
-                EntityUtils.consume(entity1);
-            }
-
-            httpClient.close();
-        } catch (ConnectTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时协议异常,堆栈轨迹如下", e);
-        } catch (SocketTimeoutException e) {
-            LOGGER.error("请求通信[" + reqURL + "]时协议异常,堆栈轨迹如下", e);
-        } catch (Exception e) {
-            LOGGER.error("请求通信[" + reqURL + "]时协议异常,堆栈轨迹如下", e);
-        }
-
-        return responseContent;
-    }
-
-
-    /**
-     * 将map转换成url
-     *
-     * @param map
-     * @return
-     */
-    public static String getUrlParamsByMap(Map<String, Object> map) {
-        if (map == null) {
-            return "";
-        }
-        StringBuffer sb = new StringBuffer();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            sb.append(entry.getKey() + "=" + entry.getValue());
-            sb.append("&");
-        }
-        String s = sb.toString();
-        if (s.endsWith("&")) {
-            s = s.substring(0, s.length() - 1);
-        }
-        return s;
-    }
-
-
-    /**
-     * 链接格式化
-     *
-     * @param urlPattern   链接模板
-     * @param urlParameter 请求参数
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    public static String urlFormat(String urlPattern, String urlParameter, String encoding) throws Exception {
-        Map<String, String[]> urlParameterMap = new HashMap<String, String[]>();
-        parseParameters(urlParameterMap, urlParameter, encoding);
-        Pattern pattern = Pattern.compile("\\{(\\w+)\\}");
-        Matcher matcher = pattern.matcher(urlPattern);
-        StringBuffer sbr = new StringBuffer();
-        boolean ismatch = false;
-        while (matcher.find()) {
-            ismatch = true;
-            String[] values = urlParameterMap.get(matcher.group(1));
-            if (values != null) {
-                matcher.appendReplacement(sbr, values[0]);
-            } else {
-                throw new Exception(matcher.group(1) + "必填項缺失。");
-            }
-        }
-        if (ismatch) {
-            matcher.appendTail(sbr);
-            return sbr.toString();
-        } else {
-            if (urlPattern.indexOf("?") > 0) {
-                urlPattern = urlPattern + "&" + urlParameter;
-            } else {
-                urlPattern = urlPattern + "?" + urlParameter;
-            }
-            return urlPattern;
-        }
-    }
-
-    private static void parseParameters(Map map, String data, String encoding)
-            throws UnsupportedEncodingException {
-        if ((data == null) || (data.length() <= 0)) {
-            return;
-        }
-
-        byte[] bytes = null;
-        try {
-            if (encoding == null)
-                bytes = data.getBytes();
-            else
-                bytes = data.getBytes(encoding);
-        } catch (UnsupportedEncodingException uee) {
-        }
-        parseParameters(map, bytes, encoding);
-    }
-
-    private static void parseParameters(Map map, byte[] data, String encoding) throws UnsupportedEncodingException {
-        if ((data != null) && (data.length > 0)) {
-            int ix = 0;
-            int ox = 0;
-            String key = null;
-            String value = null;
-            while (ix < data.length) {
-                byte c = data[(ix++)];
-                switch ((char) c) {
-                    case '&':
-                        value = new String(data, 0, ox, encoding);
-                        if (key != null) {
-                            putMapEntry(map, key, value);
-                            key = null;
-                        }
-                        ox = 0;
-                        break;
-                    case '=':
-                        if (key == null) {
-                            key = new String(data, 0, ox, encoding);
-                            ox = 0;
-                        } else {
-                            data[(ox++)] = c;
-                        }
-                        break;
-                    case '+':
-                        data[(ox++)] = 32;
-                        break;
-                    case '%':
-                        data[(ox++)] = (byte) ((convertHexDigit(data[(ix++)]) << 4) + convertHexDigit(data[(ix++)]));
-
-                        break;
-                    default:
-                        data[(ox++)] = c;
-                }
-            }
-
-            if (key != null) {
-                value = new String(data, 0, ox, encoding);
-                putMapEntry(map, key, value);
-            }
-        }
-    }
-
-    private static void putMapEntry(Map map, String name, String value) {
-        String[] newValues = null;
-        String[] oldValues = (String[]) (String[]) map.get(name);
-        if (oldValues == null) {
-            newValues = new String[1];
-            newValues[0] = value;
-        } else {
-            newValues = new String[oldValues.length + 1];
-            System.arraycopy(oldValues, 0, newValues, 0, oldValues.length);
-            newValues[oldValues.length] = value;
-        }
-        map.put(name, newValues);
-    }
-
-    protected static byte convertHexDigit(byte b) {
-        if ((b >= 48) && (b <= 57)) return (byte) (b - 48);
-        if ((b >= 97) && (b <= 102)) return (byte) (b - 97 + 10);
-        if ((b >= 65) && (b <= 70)) return (byte) (b - 65 + 10);
-        return 0;
-    }
-
+	private static HttpPost postForm(String url, Map<String, String> params) {
+		HttpPost httpost = new HttpPost(url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		Set<String> keySet = params.keySet();
+		for (String key : keySet) {
+			nvps.add(new BasicNameValuePair(key, params.get(key)));
+			httpost.addHeader(key, params.get(key));
+		}
+		try {
+			//log.info("set utf-8 form entity to httppost");
+			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return httpost;
+	}
+	public static void main(String[] args) {
+	   String sss= post("http://10.88.106.32:8081/kass/openapi/FileTranModel/doFiletran",new HashMap());
+	   System.out.println(sss);
+	}*/
 }
