@@ -1,6 +1,7 @@
 package com.dave.sun.service;
 
 
+import com.dave.sun.vo.User;
 import com.dave.sun.vo.UserEntity;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface IDemoService {
 
     public List<UserEntity> getUserList(int pageNo, int pageSize);
+
+    public List<User> selectUserPage(int pageNo, int pageSize);
 
     public void redisAdd();
 

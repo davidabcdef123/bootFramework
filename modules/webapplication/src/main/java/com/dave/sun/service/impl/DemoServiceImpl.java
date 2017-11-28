@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.dave.sun.dao.test1.UserEntityMapper;
 import com.dave.sun.dao.test2.UserMapper2;
 import com.dave.sun.service.IDemoService;
+import com.dave.sun.vo.User;
 import com.dave.sun.vo.UserEntity;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
@@ -48,6 +49,13 @@ public class DemoServiceImpl implements IDemoService {
     public List<UserEntity> getUserList(int pageNo, int pageSize) {
         PageHelper.startPage(pageNo, pageSize);
         List<UserEntity> list = userEntityMapper.selectByExample(new UserEntity());
+        return list;
+    }
+
+    @Override
+    public List<User> selectUserPage(int pageNo, int pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<User> list = userEntityMapper.selectUserPage();
         return list;
     }
 

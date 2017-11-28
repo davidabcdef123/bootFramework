@@ -1,5 +1,6 @@
 package com.dave.sun.dao.test1;
 
+import com.dave.sun.vo.User;
 import com.dave.sun.vo.UserEntity;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
@@ -125,4 +126,14 @@ public interface UserEntityMapper {
             @Result(column="del_flag", property="delFlag", jdbcType=JdbcType.CHAR)
     })
     List<UserEntity> selectByExample(UserEntity example);
+
+    @Select({
+            "select",
+            "id, name from user"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+    })
+    List<User> selectUserPage();
 }

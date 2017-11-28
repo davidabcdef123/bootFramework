@@ -1,13 +1,16 @@
 package com.dave.sun.action;
 
+import com.alibaba.fastjson.JSON;
 import com.dave.sun.common.config.error.MyException;
 import com.dave.sun.service.IDemoService;
+import com.dave.sun.vo.User;
 import com.dave.sun.vo.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,6 +38,17 @@ public class DemoController {
         modelMap.put("list1", list);
         modelMap.put("sex",1);
         return "index";
+    }
+
+    @GetMapping("getList")
+    public String getList(){
+        return "list";
+    }
+
+    @PostMapping("listData")
+    public String getListData(ModelMap modelMap,int pagesize,int pagenum){
+        List<User> list=demoService.selectUserPage(pagenum,pagesize);
+        return JSON.toJSONString(list);
     }
 
     @RequestMapping("/hello")
