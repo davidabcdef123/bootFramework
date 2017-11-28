@@ -189,7 +189,7 @@ public class UserEntitySqlProvider {
     public String selectByExample(UserEntity userEntity) {
 
         BEGIN();
-        SELECT_DISTINCT("id");
+        //SELECT_DISTINCT("id");
         SELECT("id");
         SELECT("company_id");
         SELECT("office_id");
@@ -220,8 +220,8 @@ public class UserEntitySqlProvider {
         }if(userEntity.getId()!=null){
             WHERE("name=#{userEntity.id,jdbcType=VARCHAR}");
         }*/
-        //return SQL();
-        return "select * from sys_user where name= #{name}";
+        return SQL();
+        //return "select * from sys_user where name= #{name}";
     }
 
 }

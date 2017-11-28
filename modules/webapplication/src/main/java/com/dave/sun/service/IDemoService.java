@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface IDemoService {
 
+    public List<UserEntity> getUserList(int pageNo, int pageSize);
+
     public void redisAdd();
 
     public int deleteByPrimaryKey();

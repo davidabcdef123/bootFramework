@@ -5,6 +5,7 @@ import com.dave.sun.dao.test1.UserEntityMapper;
 import com.dave.sun.dao.test2.UserMapper2;
 import com.dave.sun.service.IDemoService;
 import com.dave.sun.vo.UserEntity;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class DemoServiceImpl implements IDemoService {
 
-    private static final Logger LOGGER= LoggerFactory.getLogger(DemoServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DemoServiceImpl.class);
 
     @Autowired
     RedisTemplate redisTemplate;
 
-    @Resource(name="redisTemplate")
+    @Resource(name = "redisTemplate")
     ValueOperations<Object, Object> valOps; //4
 
     /*@Autowired
@@ -44,25 +45,32 @@ public class DemoServiceImpl implements IDemoService {
     ValueOperations<Object, Object> valOps; //4*/
 
     @Override
+    public List<UserEntity> getUserList(int pageNo, int pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<UserEntity> list = userEntityMapper.selectByExample(new UserEntity());
+        return list;
+    }
+
+    @Override
     public void redisAdd() {
         try {
             UserEntity user1 = new UserEntity();
             user1.setName("张三");
             user1.setId("123");
             user1.setEmail("2222@qq.com");
-            ValueOperations<String, UserEntity> operations=redisTemplate.opsForValue();
-            operations.set("user1",user1);
+            ValueOperations<String, UserEntity> operations = redisTemplate.opsForValue();
+            operations.set("user1", user1);
             valOps.set("user3", JSON.toJSONString(user1));
-            valOps.set("user2",user1);
-            UserEntity userR=operations.get("user1");
+            valOps.set("user2", user1);
+            UserEntity userR = operations.get("user1");
             System.out.println(userR.getName());
             System.out.println(valOps.get("user3"));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        valOps.set("test1","张三");
-        valOps.set("test2","李四", TimeUnit.HOURS.toMinutes(1));
+        valOps.set("test1", "张三");
+        valOps.set("test2", "李四", TimeUnit.HOURS.toMinutes(1));
     }
 
 
@@ -74,7 +82,7 @@ public class DemoServiceImpl implements IDemoService {
     @Override
     public int insert() {
         try {
-            UserEntity user=new UserEntity("张三");
+            UserEntity user = new UserEntity("张三");
             user.setId("999");
             user.setCompanyId("999");
             user.setOfficeId("999");
@@ -95,7 +103,7 @@ public class DemoServiceImpl implements IDemoService {
     @Override
     public int insertSelective() {
         try {
-            UserEntity user=new UserEntity("李四");
+            UserEntity user = new UserEntity("李四");
             user.setId("9991");
             user.setCompanyId("999");
             user.setOfficeId("999");
@@ -149,13 +157,13 @@ public class DemoServiceImpl implements IDemoService {
         UserEntity user = new UserEntity();
         user.setName("系统管理员");
         user.setId("1");
-        List<UserEntity> list=userEntityMapper.selectByExample(user);
+        List<UserEntity> list = userEntityMapper.selectByExample(user);
         return list;
     }
 
     @Override
     public void datesource1() {
-        List<UserEntity> userEntities= null;
+        List<UserEntity> userEntities = null;
         try {
             userEntities = userEntityMapper.selectByExample(new UserEntity("张三"));
         } catch (Exception e) {
