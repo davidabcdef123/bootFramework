@@ -22,7 +22,7 @@ public class MyFilter implements Filter{
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         //LOGGER.info("myFilter过滤");
-        String name= request.getParameter("name");
+        //String name= request.getParameter("name");
         //LOGGER.info("name="+name);
         chain.doFilter(request,response);
 

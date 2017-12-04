@@ -41,6 +41,8 @@ public class UserEntity {
     @Size(min = 2, max = 8, message = "姓名长度必须大于 2 且小于 20 字")
     private String name;
 
+    private String userName;
+
     private String email;
 
     private String phone;
@@ -48,6 +50,8 @@ public class UserEntity {
     private String mobile;
 
     private String userType;
+
+    private String passWord;
 
     private String photo;
 
@@ -242,5 +246,21 @@ public class UserEntity {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }
